@@ -1,0 +1,17 @@
+#!/bin/sh
+
+APP_HOME=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P) || exit 1
+CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
+
+if [ -z "$GRADLE_USER_HOME" ] ; then
+    GRADLE_USER_HOME=$APP_HOME/.gradle-user-home
+    export GRADLE_USER_HOME
+fi
+
+if [ -n "$JAVA_HOME" ] ; then
+    JAVACMD=$JAVA_HOME/bin/java
+else
+    JAVACMD=java
+fi
+
+exec "$JAVACMD" -Xmx64m -Xms64m "$JAVA_OPTS" "$GRADLE_OPTS" -Dorg.gradle.appname=gradlew -classpath "$CLASSPATH" org.gradle.wrapper.GradleWrapperMain "$@"
